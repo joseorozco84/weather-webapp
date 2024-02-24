@@ -8,7 +8,7 @@ import wind_icon from '../assets/wind.png';
 const WeatherApp = () => {
     const [weatherData, setWeatherData] = useState(null);
     const [error, setError] = useState(null);
-    const defaultCity = 'Neuquén'; // Specify your default city here
+    const defaultCity = 'Neuquen'; // Specify your default city here
 
     useEffect(() => {
         fetchWeatherData(defaultCity);
@@ -38,10 +38,16 @@ const WeatherApp = () => {
         fetchWeatherData(city);
     };
 
+    const handleKeyPress = (event) => {
+        if (event.key === 'Enter') {
+            search();
+        }
+    }
+
     return (
         <div className='container'>
             <div className='top-bar'>
-                <input type='text' className='cityInput' placeholder='Search' />
+                <input type='text' className='cityInput' placeholder='Search' onKeyPress={handleKeyPress} />
                 <div className='search' onClick={search}>
                     <img src={search_icon} alt='search' />
                 </div>
@@ -52,7 +58,8 @@ const WeatherApp = () => {
                         <img src={weatherData.current.condition.icon} alt='weather' className='icon' />
                     </div>
                     <div className='weather-temp'>{Math.floor(weatherData.current.temp_c)}°C</div>
-                    <div className='weather-location'>{weatherData.location.name}</div>
+                    <div className='weather-city'>{weatherData.location.name}</div>
+                    <div className='weather-country'>{weatherData.location.country}</div>
                     <div className='data-container'>
                         <div className='element'>
                             <img src={humidity_icon} alt='humidity' />
