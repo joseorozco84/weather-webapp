@@ -6,21 +6,22 @@ import humidity_icon from '../assets/humidity.png';
 import wind_icon from '../assets/wind.png';
 
 const WeatherApp = () => {
-    const [weatherData, setWeatherData] = useState(null);
-    const [error, setError] = useState(null);
+    const [weatherData, setWeatherData] = useState();
+    const [error, setError] = useState();
     const defaultCity = 'Neuquen'; // Specify your default city here
 
     useEffect(() => {
         fetchWeatherData(defaultCity);
-    }, []); // Empty dependency array to run once on component mount
+    }, [defaultCity]); // Empty dependency array to run once on component mount
 
     const fetchWeatherData = async (city) => {
         try {
             const API_KEY = process.env.REACT_APP_API_KEY;
-            const URL = `http://api.weatherapi.com/v1/current.json?key=${API_KEY}&q=${city}&aqi=no`;
+            const URL = `http://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${city}&aqi=no`;
 
             const response = await fetch(URL);
             const data = await response.json();
+            console.log(data);
             setWeatherData(data);
         } catch (error) {
             setError('An error occurred while fetching data');
@@ -42,14 +43,21 @@ const WeatherApp = () => {
         if (event.key === 'Enter') {
             search();
         }
-    }
+    };
 
     return (
         <div className='container'>
             <div className='top-bar'>
-                <input type='text' className='cityInput' placeholder='Search' onKeyPress={handleKeyPress} />
-                <div className='search' onClick={search}>
-                    <img src={search_icon} alt='search' />
+                <div className='search-container'>
+                    <input
+                        className='cityInput'
+                        type='text'
+                        placeholder='Search'
+                        onKeyPress={handleKeyPress} // Trigger search on "Enter" key press
+                    />
+                    <div className='search-icon' onClick={search}>
+                        <img src={search_icon} alt='search' />
+                    </div>
                 </div>
             </div>
             {weatherData && (
@@ -75,6 +83,34 @@ const WeatherApp = () => {
                                 <div className='text'>Wind Speed</div>
                             </div>
                         </div>
+                    </div>
+                    <div className='forecast'>Forecast</div>
+                    <div>
+                        {weatherData.forecast.forecastday.map((day, index) => (
+                            <div className='row' key={index}>
+                                <div className='forecast-card'>
+                                    <img src={day.hour[0].condition.icon} alt='weather' className='forecast-icon' />
+                                    <div>{Math.floor(day.hour[0].temp_c)}°C</div>
+                                    <div>{day.hour[0].time}</div>
+                                </div>
+                                <div className='forecast-card'>
+                                    <img src={day.hour[1].condition.icon} alt='weather' className='forecast-icon' />
+                                    <div>{Math.floor(day.hour[1].temp_c)}°C</div>
+                                    <div>{day.hour[1].time}</div>
+                                </div>
+                                <div className='forecast-card'>
+                                    <img src={day.hour[2].condition.icon} alt='weather' className='forecast-icon' />
+                                    <div>{Math.floor(day.hour[2].temp_c)}°C</div>
+                                    <div>{day.hour[2].time}</div>
+                                </div>
+                                <div className='forecast-card'>
+                                    <img src={day.hour[3].condition.icon} alt='weather' className='forecast-icon' />
+                                    <div>{Math.floor(day.hour[3].temp_c)}°C</div>
+                                    <div>{day.hour[3].time}</div>
+                                </div>
+                                
+                            </div>
+                        ))}
                     </div>
                 </div>
             )}
