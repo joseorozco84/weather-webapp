@@ -8,7 +8,7 @@ import wind_icon from '../assets/wind.png';
 const WeatherApp = () => {
     const [weatherData, setWeatherData] = useState(null);
     const [error, setError] = useState(null);
-    const defaultCity = 'Buenos Aires'; // Specify your default city here
+    const defaultCity = 'Neuquén'; // Specify your default city here
 
     useEffect(() => {
         fetchWeatherData(defaultCity);
@@ -16,7 +16,7 @@ const WeatherApp = () => {
 
     const fetchWeatherData = async (city) => {
         try {
-            const API_KEY = 'd9b098dff6f447ff8ae221350242302';
+            const API_KEY = process.env.REACT_APP_API_KEY;
             const URL = `http://api.weatherapi.com/v1/current.json?key=${API_KEY}&q=${city}&aqi=no`;
 
             const response = await fetch(URL);
@@ -49,7 +49,7 @@ const WeatherApp = () => {
             {weatherData && (
                 <div className='weather-container'>
                     <div className='weather-image'>
-                        <img src={weatherData.current.condition.icon} alt='weather' />
+                        <img src={weatherData.current.condition.icon} alt='weather' className='icon' />
                     </div>
                     <div className='weather-temp'>{Math.floor(weatherData.current.temp_c)}°C</div>
                     <div className='weather-location'>{weatherData.location.name}</div>
