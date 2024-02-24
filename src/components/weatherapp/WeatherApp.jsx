@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import ForecastCard from '../ForecastCard';
 import './WeatherApp.css';
+
 
 import search_icon from '../assets/search.png';
 import humidity_icon from '../assets/humidity.png';
@@ -8,6 +10,7 @@ import wind_icon from '../assets/wind.png';
 const WeatherApp = () => {
     const [weatherData, setWeatherData] = useState();
     const [error, setError] = useState();
+    const [inputValue, setInputValue] = useState('');
     const defaultCity = 'Neuquen'; // Specify your default city here
 
     useEffect(() => {
@@ -21,7 +24,6 @@ const WeatherApp = () => {
 
             const response = await fetch(URL);
             const data = await response.json();
-            console.log(data);
             setWeatherData(data);
         } catch (error) {
             setError('An error occurred while fetching data');
@@ -45,6 +47,14 @@ const WeatherApp = () => {
         }
     };
 
+    const handleChange = (event) => {
+        const { value } = event.target;
+        // Validate input using regex
+        if (/^[a-zA-Z\s]*$/.test(value) || value === '') {
+            setInputValue(value);
+        }
+    };
+
     return (
         <div className='container'>
             <div className='top-bar'>
@@ -53,6 +63,8 @@ const WeatherApp = () => {
                         className='cityInput'
                         type='text'
                         placeholder='Search'
+                        value={inputValue}
+                        onChange={handleChange}
                         onKeyPress={handleKeyPress} // Trigger search on "Enter" key press
                     />
                     <div className='search-icon' onClick={search}>
@@ -88,28 +100,10 @@ const WeatherApp = () => {
                     <div>
                         {weatherData.forecast.forecastday.map((day, index) => (
                             <div className='row' key={index}>
-                                <div className='forecast-card'>
-                                    <img src={day.hour[0].condition.icon} alt='weather' className='forecast-icon' />
-                                    <div>{Math.floor(day.hour[0].temp_c)}°C</div>
-                                    <div>{day.hour[0].time}</div>
-                                </div>
-                                <div className='forecast-card'>
-                                    <img src={day.hour[1].condition.icon} alt='weather' className='forecast-icon' />
-                                    <div>{Math.floor(day.hour[1].temp_c)}°C</div>
-                                    <div>{day.hour[1].time}</div>
-                                </div>
-                                <div className='forecast-card'>
-                                    <img src={day.hour[2].condition.icon} alt='weather' className='forecast-icon' />
-                                    <div>{Math.floor(day.hour[2].temp_c)}°C</div>
-                                    <div>{day.hour[2].time}</div>
-                                </div>
-                                <div className='forecast-card'>
-                                    <img src={day.hour[3].condition.icon} alt='weather' className='forecast-icon' />
-                                    <div>{Math.floor(day.hour[3].temp_c)}°C</div>
-                                    <div>{day.hour[3].time}</div>
-                                </div>
-                                
-                            </div>
+                            {day.hour.map((hour, hourIndex) => (
+                                <ForecastCard key={hourIndex} hour={hour} />
+                            ))}
+                        </div>
                         ))}
                     </div>
                 </div>
