@@ -37,6 +37,7 @@ const WeatherApp = () => {
             return;
         }
         fetchWeatherData(city);
+        setShowAlert(false);
     };
 
     const handleKeyPress = (event) => {
@@ -56,20 +57,16 @@ const WeatherApp = () => {
                         onKeyPress={handleKeyPress} // Trigger search on "Enter" key press
                     />
                     <div className='search-icon' onClick={search}>
-                        <i class="bi bi-search"></i>
+                        <i className="bi bi-search"></i>
                     </div>
                 </div>
-            </div>
             {showAlert && (
-                <div className={`alert alert-warning ${showAlert ? 'show' : ''}`} role="alert">
-                    <i className="bi bi-exclamation-diamond-fill" style={{ color: 'darkorange' }}></i>
-                    <span className='ms-2'>You must enter a city name</span>
+                <div className={`alert alert-warning ${showAlert ? 'show' : 'hide'}`} role="alert">
+                    <i className="bi bi-exclamation-circle-fill" style={{ color: 'darkorange' }}></i>
+                    <span className='ms-2' style={{ fontWeight: '600' }}>You must enter a city name!</span>
                 </div>
             )}
-            {/* <div className="alert alert-warning" role="alert">
-            <i className="bi bi-exclamation-diamond-fill" style={{ color: 'darkorange' }}></i>
-            <span className='ms-2'>You must enter a city name</span>
-            </div> */}
+            </div>
             {weatherData && (
                 <div className='weather-container'>
                     <div className='weather-image'>
@@ -87,7 +84,7 @@ const WeatherApp = () => {
                             </div>
                         </div>
                         <div className='element'>
-                            <i class="bi bi-wind" style={{ fontSize: '60px' }}></i>
+                            <i className="bi bi-wind" style={{ fontSize: '60px' }}></i>
                             <div className='data'>
                                 <div className='wind-rate'>{Math.floor(weatherData.current.wind_kph)}km/h</div>
                                 <div className='text'>Wind Speed</div>
