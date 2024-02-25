@@ -53,6 +53,7 @@
 .weather-temp{
     display: flex;
     justify-content: center;
+    align-items: center;
     color: white;
     font-size: 80px;
     font-weight: 400;
@@ -86,6 +87,8 @@
     display: flex;
     align-items: center;
     gap: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 .data{
@@ -187,4 +190,14 @@
 
 .alert{
     width: max-content;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.alert.show {
+    opacity: 1;
+}
+
+.bi bi-water{
+    font-size: 60px !important;
 }

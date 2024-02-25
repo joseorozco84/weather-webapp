@@ -3,13 +3,10 @@ import ForecastCard from '../ForecastCard';
 import './WeatherApp.css';
 
 
-import search_icon from '../assets/search.png';
-import humidity_icon from '../assets/humidity.png';
-import wind_icon from '../assets/wind.png';
-
 const WeatherApp = () => {
     const [weatherData, setWeatherData] = useState();
     const [error, setError] = useState();
+    const [showAlert, setShowAlert] = useState(false);
     const defaultCity = 'Neuquen'; // Specify your default city here
 
     useEffect(() => {
@@ -34,7 +31,9 @@ const WeatherApp = () => {
         const cityInput = document.querySelector('.cityInput');
         const city = cityInput.value.trim();
         if (!city) {
-            setError('Please enter a city');
+            // setError('Please enter a city');
+            setShowAlert(true);
+            setTimeout(() => setShowAlert(false), 3000);
             return;
         }
         fetchWeatherData(city);
@@ -57,13 +56,20 @@ const WeatherApp = () => {
                         onKeyPress={handleKeyPress} // Trigger search on "Enter" key press
                     />
                     <div className='search-icon' onClick={search}>
-                        <img src={search_icon} alt='search' />
+                        <i class="bi bi-search"></i>
                     </div>
                 </div>
             </div>
-                <div className="alert alert-danger" role="alert">
-                    You must enter a name!
+            {showAlert && (
+                <div className={`alert alert-warning ${showAlert ? 'show' : ''}`} role="alert">
+                    <i className="bi bi-exclamation-diamond-fill" style={{ color: 'darkorange' }}></i>
+                    <span className='ms-2'>You must enter a city name</span>
                 </div>
+            )}
+            {/* <div className="alert alert-warning" role="alert">
+            <i className="bi bi-exclamation-diamond-fill" style={{ color: 'darkorange' }}></i>
+            <span className='ms-2'>You must enter a city name</span>
+            </div> */}
             {weatherData && (
                 <div className='weather-container'>
                     <div className='weather-image'>
@@ -74,20 +80,21 @@ const WeatherApp = () => {
                     <div className='weather-country'>{weatherData.location.country}</div>
                     <div className='data-container'>
                         <div className='element'>
-                            <img src={humidity_icon} alt='humidity' />
+                            <i className="bi bi-water" style={{ fontSize: '60px' }}></i>
                             <div className='data'>
                                 <div className='humidity-percent'>{weatherData.current.humidity}%</div>
                                 <div className='text'>Humidity</div>
                             </div>
                         </div>
                         <div className='element'>
-                            <img src={wind_icon} alt='wind' />
+                            <i class="bi bi-wind" style={{ fontSize: '60px' }}></i>
                             <div className='data'>
                                 <div className='wind-rate'>{Math.floor(weatherData.current.wind_kph)}km/h</div>
                                 <div className='text'>Wind Speed</div>
                             </div>
                         </div>
                     </div>
+                    <hr className="hr" style={{ color: 'white' }} />
                     <div className='forecastRow'>
                         {weatherData.forecast.forecastday.map((day, index) => (
                             <div className='row' key={index}>

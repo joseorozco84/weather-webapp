@@ -5,6 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../src/components/weatherapp/WeatherApp.css';
+import '../node_modules/bootstrap-icons/font/bootstrap-icons.css';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
