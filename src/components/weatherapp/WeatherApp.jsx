@@ -10,7 +10,6 @@ import wind_icon from '../assets/wind.png';
 const WeatherApp = () => {
     const [weatherData, setWeatherData] = useState();
     const [error, setError] = useState();
-    const [inputValue, setInputValue] = useState('');
     const defaultCity = 'Neuquen'; // Specify your default city here
 
     useEffect(() => {
@@ -24,6 +23,7 @@ const WeatherApp = () => {
 
             const response = await fetch(URL);
             const data = await response.json();
+            console.log(data);
             setWeatherData(data);
         } catch (error) {
             setError('An error occurred while fetching data');
@@ -37,21 +37,12 @@ const WeatherApp = () => {
             setError('Please enter a city');
             return;
         }
-
         fetchWeatherData(city);
     };
 
     const handleKeyPress = (event) => {
         if (event.key === 'Enter') {
             search();
-        }
-    };
-
-    const handleChange = (event) => {
-        const { value } = event.target;
-        // Validate input using regex
-        if (/^[a-zA-Z\s]*$/.test(value) || value === '') {
-            setInputValue(value);
         }
     };
 
@@ -62,9 +53,7 @@ const WeatherApp = () => {
                     <input
                         className='cityInput'
                         type='text'
-                        placeholder='Search'
-                        value={inputValue}
-                        onChange={handleChange}
+                        placeholder='Search for a city'
                         onKeyPress={handleKeyPress} // Trigger search on "Enter" key press
                     />
                     <div className='search-icon' onClick={search}>
@@ -96,8 +85,7 @@ const WeatherApp = () => {
                             </div>
                         </div>
                     </div>
-                    <div className='forecast'>Forecast</div>
-                    <div>
+                    <div className='forecastRow'>
                         {weatherData.forecast.forecastday.map((day, index) => (
                             <div className='row' key={index}>
                             {day.hour.map((hour, hourIndex) => (

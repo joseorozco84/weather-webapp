@@ -2,10 +2,10 @@
     width: 607px;
     height: auto;
     margin: auto;
-    margin-top: 75px;
-    margin-bottom: 75px;
+    /* margin-top: 75px; */
+    /* margin-bottom: 75px; */
     border-radius: 8px;
-    background-color: #7198c5;
+    background-color: #424a53;
 
 }
 
@@ -13,7 +13,7 @@
     display: flex;
     justify-content: center;
     gap: 14px;
-    padding-top: 60px;
+    padding-top: 20px;
 }
 
 .top-bar input{
@@ -82,7 +82,7 @@
 .element{
     margin: auto;
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     gap: 12px;
 }
 
@@ -129,13 +129,12 @@
     height: 20px;
 }
 
-.forecast{
-    padding-top: 60px;
+.forecastRow{
     display: flex;
     justify-content: center;
     color: white;
-    font-size: 30px;
     font-weight: 400;
+    padding: 20px;
 }
 
 .forecast-icon{
@@ -144,19 +143,37 @@
 }
 
 .forecast-card{
-    /* background-color: hsla(199, 30%, 47%, 0.247); */
-    width: 120px;
-    height: 150px;
-    border-radius: 8px;
+    /* border-radius: 8px; */
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    color: rgb(201, 201, 201);
+    font-weight: 600;
 }
 
 .row{
     display: flex;
     overflow: auto;
-    padding-top: 20px;
-    padding-bottom: 40px;
+    /* padding-top: 20px;
+    padding-bottom: 40px; */
+}
+
+.suggestionsList {
+    list-style-type: none;
+    border-radius: 8px;
+    text-align: -webkit-left;
+    padding: 8px;
+    margin: 0;
+    position: absolute;
+    top: 12%;
+    width: 426px;
+    background-color: #ebfffc;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.suggestionItem {
+    cursor: pointer;
+    padding: 8px !important;
 }
