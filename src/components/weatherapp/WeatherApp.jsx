@@ -61,6 +61,9 @@ const WeatherApp = () => {
                     </div>
                 </div>
             </div>
+                <div className="alert alert-danger" role="alert">
+                    You must enter a name!
+                </div>
             {weatherData && (
                 <div className='weather-container'>
                     <div className='weather-image'>
@@ -88,10 +91,10 @@ const WeatherApp = () => {
                     <div className='forecastRow'>
                         {weatherData.forecast.forecastday.map((day, index) => (
                             <div className='row' key={index}>
-                            {day.hour.map((hour, hourIndex) => (
-                                <ForecastCard key={hourIndex} hour={hour} />
-                            ))}
-                        </div>
+                                {day.hour.map((hour, hourIndex) => (
+                                    <ForecastCard key={hourIndex} hour={hour} />
+                                ))}
+                            </div>
                         ))}
                     </div>
                 </div>
