@@ -1,4 +1,5 @@
 .container{
+    display: inherit;
     width: 607px;
     height: auto;
     margin: auto;
@@ -6,7 +7,6 @@
     /* margin-bottom: 75px; */
     border-radius: 8px;
     background-color: #424a53;
-
 }
 
 .top-bar{
@@ -18,9 +18,8 @@
 
 .top-bar input{
     display: flex;
-    width: 450px;
+    width: 100%;
     height: 78px;
-    background: #ebfffc;
     border: none;
     outline: none;
     border-radius: 8px;
@@ -109,11 +108,13 @@
 
 .search-container {
     position: relative;
+    width: 95%;
 }
 
 .cityInput {
     padding-right: 30px; /* Space for the search icon */
     width: 200px; /* Adjust as needed */
+    background: #fffaf0;
 }
 
 .search-icon {
@@ -145,6 +146,7 @@
 .forecast-card{
     /* border-radius: 8px; */
     display: flex;
+    width: auto !important;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -155,6 +157,8 @@
 .row{
     display: flex;
     overflow: auto;
+    flex-wrap: nowrap !important;
+    /* width: 80px; */
     /* padding-top: 20px;
     padding-bottom: 40px; */
 }
