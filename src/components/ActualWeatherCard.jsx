@@ -16,7 +16,7 @@ const ActualWeatherCard = ({ weatherData }) => {
     const temperatureUnit = isCelsius ? "°C" : "°F";
 
     const windSpeed = isKilometersPerHour ? weatherData.current.wind_kph : weatherData.current.wind_mph;
-    const windSpeedUnit = isKilometersPerHour ? "km/h" : "mi/hr";
+    const windSpeedUnit = isKilometersPerHour ? "km/h" : "mi/h";
 
     return (
         <>
@@ -25,7 +25,7 @@ const ActualWeatherCard = ({ weatherData }) => {
             </div>
             
             <div className='weather-temp' onClick={toggleTemperatureUnit}>
-            <i className="bi bi-thermometer-half" style={{ fontSize: '60px', color: '#dd8888' }}></i>
+            <i className="bi bi-thermometer-half" style={{ fontSize: '60px', color: '#ffa500' }}></i>
                 {Math.floor(temperature)}{temperatureUnit}
             </div>
             <div className='weather-city'>{weatherData.location.name}</div>

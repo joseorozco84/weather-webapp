@@ -55,7 +55,6 @@
     align-items: center;
     color: white;
     font-size: 70px;
-    font-weight: 600;
 }
 
 .weather-city{
@@ -189,6 +188,7 @@
 .alert{
     width: max-content;
     opacity: 0 !important;
+    top: 13%;
     transition: opacity 2.5s ease-in-out !important;
 }
 
@@ -199,4 +199,14 @@
 
 .alert.hide {
     opacity: 0 !important;
+}
+
+.search-history{
+    display: flex;
+    color: #ebfffc;
+}
+
+.search-history-item{
+    cursor: pointer;
+    text-align: left;
 }

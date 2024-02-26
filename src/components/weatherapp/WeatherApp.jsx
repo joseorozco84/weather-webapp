@@ -72,6 +72,7 @@ const WeatherApp = () => {
                     </div>
                 )}
             </div>
+            {error && <div className='error'>{error}</div>}
             {weatherData && (
                 <div className='weather-container'>
                     <ActualWeatherCard weatherData={weatherData} />
@@ -93,7 +94,6 @@ const WeatherApp = () => {
                     )}
                 </div>
             )}
-            {error && <div className='error'>{error}</div>}
         </div>
     );
 };
