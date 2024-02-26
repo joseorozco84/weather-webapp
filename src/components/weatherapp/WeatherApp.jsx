@@ -57,7 +57,7 @@ const WeatherApp = () => {
                         onKeyPress={handleKeyPress} // Trigger search on "Enter" key press
                     />
                     <div className='search-icon' onClick={search}>
-                        <i className="bi bi-search"></i>
+                        <i className="bi bi-search" style={{ fontSize: '24px', color: 'gray' }} data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Tooltip on bottom"></i>
                     </div>
                 </div>
             {showAlert && (
