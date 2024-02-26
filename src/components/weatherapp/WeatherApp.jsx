@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import ForecastCard from '../ForecastCard';
+import ForecastHourCard from '../ForecastHourCard';
+import ActualWeatherCard from '../ActualWeatherCard';
 import './WeatherApp.css';
 
 
@@ -61,63 +62,26 @@ const WeatherApp = () => {
                         <i className="bi bi-search" style={{ fontSize: '24px', color: 'gray' }} data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Tooltip on bottom"></i>
                     </div>
                 </div>
-            {showAlert && (
-                <div className={`alert alert-warning ${showAlert ? 'show' : 'hide'}`} role="alert">
-                    <i className="bi bi-exclamation-circle-fill" style={{ color: 'darkorange' }}></i>
-                    <span className='ms-2' style={{ fontWeight: '600' }}>You must enter a city name!</span>
-                </div>
-            )}
+                {showAlert && (
+                    <div className={`alert alert-warning ${showAlert ? 'show' : 'hide'}`} role="alert">
+                        <i className="bi bi-exclamation-circle-fill" style={{ color: 'darkorange' }}></i>
+                        <span className='ms-2' style={{ fontWeight: '600' }}>You must enter a city name!</span>
+                    </div>
+                )}
             </div>
             {weatherData && (
                 <div className='weather-container'>
-                    <div className='weather-image'>
-                        <img src={weatherData.current.condition.icon} alt='weather' className='icon' />
-                    </div>
-                    <div className='weather-temp'>{Math.floor(weatherData.current.temp_c)}°C</div>
-                    <div className='weather-city'>{weatherData.location.name}</div>
-                    <div className='weather-country'>{weatherData.location.country}</div>
-                    <div className='data-container'>
-                        <div className='element'>
-                            <i className="bi bi-water" style={{ fontSize: '60px' }}></i>
-                            <div className='data'>
-                                <div className='humidity-percent'>{weatherData.current.humidity}%</div>
-                                <div className='text'>Humidity</div>
-                            </div>
-                        </div>
-                        <div className='element'>
-                            <i className="bi bi-wind" style={{ fontSize: '60px' }}></i>
-                            <div className='data'>
-                                <div className='wind-rate'>{Math.floor(weatherData.current.wind_kph)}km/h</div>
-                                <div className='text'>Wind Speed</div>
-                            </div>
-                        </div>
-                    </div>
+                    <ActualWeatherCard weatherData={weatherData} />
                     <hr className="hr" style={{ color: 'white' }} />
                     <div className='forecastRow'>
-    {/* Filter and render forecast for the current day */}
-    {weatherData.forecast.forecastday
-        .filter((day) => {
-            // Extract the date from the forecast data
-            const forecastDate = new Date(day.date);
-            // Extract the current date
-            const currentDate = new Date();
-
-            // Check if the forecast date is the same as the current date
-            return (
-                forecastDate.getFullYear() === currentDate.getFullYear() &&
-                forecastDate.getMonth() === currentDate.getMonth() &&
-                forecastDate.getDate() === currentDate.getDate()
-            );
-        })
-        .map((filteredDay, index) => (
-            <div className='row' key={index}>
-                {filteredDay.hour.map((hour, hourIndex) => (
-                    <ForecastCard key={hourIndex} hour={hour} />
-                ))}
-            </div>
-        ))}
-</div>
-
+                        {/* Render forecast for today */}
+                        <div className='row'>
+                            {weatherData.forecast.forecastday.length > 0 &&
+                                weatherData.forecast.forecastday[0].hour.map((hour, hourIndex) => (
+                                    <ForecastHourCard key={hourIndex} hour={hour} />
+                                ))}
+                        </div>
+                    </div>
                 </div>
             )}
             {error && <div className='error'>{error}</div>}

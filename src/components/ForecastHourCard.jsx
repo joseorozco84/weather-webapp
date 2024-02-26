@@ -1,7 +1,7 @@
-// ForecastCard.js
+// ForecastHourCard.js
 import React from 'react';
 
-const ForecastCard = ({ hour }) => {
+const ForecastHourCard = ({ hour }) => {
 
     const parsedTime = new Date(hour.time);
     const hours = parsedTime.getHours();
@@ -17,4 +17,4 @@ const ForecastCard = ({ hour }) => {
     );
 };
 
-export default ForecastCard;
+export default ForecastHourCard;
