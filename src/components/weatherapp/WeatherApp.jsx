@@ -77,8 +77,8 @@ const WeatherApp = () => {
                 <div className='weather-container'>
                     <ActualWeatherCard weatherData={weatherData} />
                     <hr className="hr" style={{ color: 'white' }} />
-                    <button type="button" class="btn btn-primary" onClick={toggleForecastVisibility}>
-                        <i class="me-2 bi bi-clock-history"></i>
+                    <button type="button" className="btn btn-primary" onClick={toggleForecastVisibility}>
+                        <i className="me-2 bi bi-clock-history"></i>
                         {showForecast ? 'Hide Forecast' : 'Show Forecast'}
                     </button>
                     {showForecast && (
