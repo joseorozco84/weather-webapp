@@ -8,6 +8,7 @@ const WeatherApp = () => {
     const [weatherData, setWeatherData] = useState();
     const [error, setError] = useState();
     const [showAlert, setShowAlert] = useState(false);
+    const [showForecast, setShowForecast] = useState(true); // State to control forecast row visibility
     const defaultCity = 'Neuquen'; // Specify your default city here
 
     useEffect(() => {
@@ -17,7 +18,6 @@ const WeatherApp = () => {
     const fetchWeatherData = async (city) => {
         try {
             const API_KEY = process.env.REACT_APP_API_KEY;
-            // const URL = `http://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${city}&aqi=no`;
             const URL = `http://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${city}&aqi=no&days=7`;
 
             const response = await fetch(URL);
@@ -33,7 +33,6 @@ const WeatherApp = () => {
         const cityInput = document.querySelector('.cityInput');
         const city = cityInput.value.trim();
         if (!city) {
-            // setError('Please enter a city');
             setShowAlert(true);
             setTimeout(() => setShowAlert(false), 3000);
             return;
@@ -46,6 +45,10 @@ const WeatherApp = () => {
         if (event.key === 'Enter') {
             search();
         }
+    };
+
+    const toggleForecastVisibility = () => {
+        setShowForecast(prevShowForecast => !prevShowForecast);
     };
 
     return (
@@ -73,15 +76,21 @@ const WeatherApp = () => {
                 <div className='weather-container'>
                     <ActualWeatherCard weatherData={weatherData} />
                     <hr className="hr" style={{ color: 'white' }} />
-                    <div className='forecastRow'>
-                        {/* Render forecast for today */}
-                        <div className='row'>
-                            {weatherData.forecast.forecastday.length > 0 &&
-                                weatherData.forecast.forecastday[0].hour.map((hour, hourIndex) => (
-                                    <ForecastHourCard key={hourIndex} hour={hour} />
-                                ))}
+                    <button type="button" class="btn btn-primary" onClick={toggleForecastVisibility}>
+                        <i class="me-2 bi bi-clock-history"></i>
+                        {showForecast ? 'Hide Forecast' : 'Show Forecast'}
+                    </button>
+                    {showForecast && (
+                        <div className='forecastRow'>
+                            {/* Render forecast for today */}
+                            <div className='row'>
+                                {weatherData.forecast.forecastday.length > 0 &&
+                                    weatherData.forecast.forecastday[0].hour.map((hour, hourIndex) => (
+                                        <ForecastHourCard key={hourIndex} hour={hour} />
+                                    ))}
+                            </div>
                         </div>
-                    </div>
+                    )}
                 </div>
             )}
             {error && <div className='error'>{error}</div>}
