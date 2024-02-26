@@ -16,7 +16,8 @@ const WeatherApp = () => {
     const fetchWeatherData = async (city) => {
         try {
             const API_KEY = process.env.REACT_APP_API_KEY;
-            const URL = `http://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${city}&aqi=no`;
+            // const URL = `http://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${city}&aqi=no`;
+            const URL = `http://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${city}&aqi=no&days=7`;
 
             const response = await fetch(URL);
             const data = await response.json();
@@ -93,14 +94,30 @@ const WeatherApp = () => {
                     </div>
                     <hr className="hr" style={{ color: 'white' }} />
                     <div className='forecastRow'>
-                        {weatherData.forecast.forecastday.map((day, index) => (
-                            <div className='row' key={index}>
-                                {day.hour.map((hour, hourIndex) => (
-                                    <ForecastCard key={hourIndex} hour={hour} />
-                                ))}
-                            </div>
-                        ))}
-                    </div>
+    {/* Filter and render forecast for the current day */}
+    {weatherData.forecast.forecastday
+        .filter((day) => {
+            // Extract the date from the forecast data
+            const forecastDate = new Date(day.date);
+            // Extract the current date
+            const currentDate = new Date();
+
+            // Check if the forecast date is the same as the current date
+            return (
+                forecastDate.getFullYear() === currentDate.getFullYear() &&
+                forecastDate.getMonth() === currentDate.getMonth() &&
+                forecastDate.getDate() === currentDate.getDate()
+            );
+        })
+        .map((filteredDay, index) => (
+            <div className='row' key={index}>
+                {filteredDay.hour.map((hour, hourIndex) => (
+                    <ForecastCard key={hourIndex} hour={hour} />
+                ))}
+            </div>
+        ))}
+</div>
+
                 </div>
             )}
             {error && <div className='error'>{error}</div>}
