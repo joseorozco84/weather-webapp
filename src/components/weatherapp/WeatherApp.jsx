@@ -73,15 +73,17 @@ const WeatherApp = () => {
                     </div>
                 )}
             </div>
+            <div className='forecast-button'>
+                <button type="button" className="btn btn-info" onClick={toggleForecastVisibility}>
+                    <i className="bi bi-clock-history"></i>
+                </button>
+            </div>
             {error && <div className='error'>{error}</div>}
             {weatherData && (
                 <div className='weather-container'>
                     <ActualWeatherCard weatherData={weatherData} />
-                    <hr className="hr" style={{ color: 'white' }} />
-                    <button type="button" className="btn btn-primary" onClick={toggleForecastVisibility}>
-                        <i className="me-2 bi bi-clock-history"></i>
-                        {showForecast ? 'Hide Forecast' : 'Show Forecast'}
-                    </button>
+                    {/* <hr className="hr" style={{ color: 'white' }} /> */}
+                    
                     {showForecast && (
                         <div className='forecastRow'>
                             {/* Render forecast for today */}
