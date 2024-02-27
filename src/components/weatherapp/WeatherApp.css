@@ -139,8 +139,9 @@
     height: 20px;
 }
 
-.forecastRow{
+.forecast-row{
     display: flex;
+    justify-content: space-between !important;
     justify-content: center;
     font-weight: 400;
 }
@@ -150,7 +151,7 @@
     height: 60px;
 }
 
-.forecast-card{
+.forecast-hour-card{
     /* border-radius: 8px; */
     display: flex;
     padding: 1% !important;
@@ -159,7 +160,19 @@
     justify-content: center;
     align-items: center;
     color: rgb(202, 202, 202);
-    font-weight: 600;
+    /* font-weight: 600; */
+}
+
+.forecast-day-card{
+    display: flex;
+    padding: 1% !important;
+    width: auto !important;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: rgb(202, 202, 202);
+    /* font-weight: 600; */
+    font-size: smaller;
 }
 
 .row{

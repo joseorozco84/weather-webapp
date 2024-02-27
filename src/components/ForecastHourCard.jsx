@@ -9,7 +9,7 @@ const ForecastHourCard = ({ hour }) => {
     const formattedTime = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
 
     return (
-        <div className='forecast-card'>
+        <div className='forecast-hour-card'>
             <img src={hour.condition.icon} alt='weather' className='forecast-icon' />
             <div>{Math.floor(hour.temp_c)}°C</div>
             <div>{formattedTime}</div>

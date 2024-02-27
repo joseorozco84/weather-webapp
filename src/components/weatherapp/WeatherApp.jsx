@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import ForecastHourCard from '../ForecastHourCard';
+import ForecastDayCard from '../ForecastDayCard';
 import ActualWeatherCard from '../ActualWeatherCard';
 import './WeatherApp.css';
 
@@ -8,7 +9,6 @@ const WeatherApp = () => {
     const [weatherData, setWeatherData] = useState();
     const [error, setError] = useState();
     const [showAlert, setShowAlert] = useState(false);
-    const [showForecast, setShowForecast] = useState(true); // State to control forecast row visibility
     const defaultCity = 'Neuquen'; // Specify your default city here
 
     useEffect(() => {
@@ -48,10 +48,6 @@ const WeatherApp = () => {
         }
     };
 
-    const toggleForecastVisibility = () => {
-        setShowForecast(prevShowForecast => !prevShowForecast);
-    };
-
     return (
         <div className='container'>
             <div className='top-bar'>
@@ -73,30 +69,30 @@ const WeatherApp = () => {
                     </div>
                 )}
             </div>
-            <div className='forecast-button'>
-                <button type="button" className="btn btn-info" onClick={toggleForecastVisibility}>
-                    <i className="bi bi-clock-history"></i>
-                </button>
-            </div>
             {error && <div className='error'>{error}</div>}
             {weatherData && (
                 <div className='weather-container'>
                     <ActualWeatherCard weatherData={weatherData} />
-                    {/* <hr className="hr" style={{ color: 'white' }} /> */}
-                    
-                    {showForecast && (
-                        <div className='forecastRow'>
-                            {/* Render forecast for today */}
-                            <div className='row'>
-                                {weatherData.forecast.forecastday.length > 0 &&
-                                    weatherData.forecast.forecastday[0].hour.map((hour, hourIndex) => (
-                                        <ForecastHourCard key={hourIndex} hour={hour} />
-                                    ))}
-                            </div>
+                    <hr className="hr" style={{ color: 'white' }} />
+                    <div className='forecast-row'>
+                        {/* Render forecast for today */}
+                        <div className='row'>
+                            {weatherData.forecast.forecastday.length > 0 &&
+                                weatherData.forecast.forecastday[0].hour.map((hour, hourIndex) => (
+                                    <ForecastHourCard key={hourIndex} hour={hour} />
+                                ))}
                         </div>
-                    )}
+                    </div>
+                    <hr className="hr" style={{ color: 'white' }} />
+                    <div className='forecast-row'>
+                        {/* Render forecast for each day */}
+                        {weatherData.forecast.forecastday.map((day, dayIndex) => (
+                            <ForecastDayCard key={dayIndex} day={day} />
+                        ))}
+                    </div>
                 </div>
             )}
+            
         </div>
     );
 };
