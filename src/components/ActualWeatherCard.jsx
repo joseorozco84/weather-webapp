@@ -26,7 +26,7 @@ const ActualWeatherCard = ({ weatherData, onCityClick }) => {
             <div className='weather-temp' onClick={toggleTemperatureUnit}>
                 {Math.floor(temperature)}{temperatureUnit}
             </div>
-            <div className='weather-city' onClick={onCityClick}>{weatherData.location.name}</div>
+            <div className='weather-city' onClick={onCityClick}>{weatherData.location.name}<i className="bi bi-star" style={{ color: 'yellow' }}></i></div>
             <div className='weather-country'>{weatherData.location.country}</div>
             <div className='data-container'>
                 <div className='element'>

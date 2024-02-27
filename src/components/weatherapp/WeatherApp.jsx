@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import ForecastHourCard from '../ForecastHourCard';
 import ForecastDayCard from '../ForecastDayCard';
 import ActualWeatherCard from '../ActualWeatherCard';
+import SearchCityCard from '../SearchCityCard'; // Import the new component
 import './WeatherApp.css';
 
 const WeatherApp = () => {
@@ -9,7 +10,6 @@ const WeatherApp = () => {
     const [error, setError] = useState();
     const [showAlert, setShowAlert] = useState(false);
     const [defaultCity, setDefaultCity] = useState(() => {
-        // Load default city from localStorage or use 'Neuquen' as the default
         return localStorage.getItem('defaultCity') || 'Neuquen';
     });
 
@@ -53,32 +53,17 @@ const WeatherApp = () => {
     const handleCityClick = () => {
         if (weatherData) {
             setDefaultCity(weatherData.location.name);
-            // Store default city in localStorage
             localStorage.setItem('defaultCity', weatherData.location.name);
         }
     };
 
     return (
         <div className='container'>
-            <div className='top-bar'>
-                <div className='search-container'>
-                    <input
-                        className='cityInput'
-                        type='text'
-                        placeholder='Search for a city'
-                        onKeyPress={handleKeyPress}
-                    />
-                    <div className='search-icon' onClick={search}>
-                        <i className="bi bi-search" style={{ fontSize: '24px', color: 'gray' }}></i>
-                    </div>
-                </div>
-                {showAlert && (
-                    <div className={`alert alert-warning ${showAlert ? 'show' : 'hide'}`} role="alert">
-                        <i className="bi bi-exclamation-circle-fill" style={{ color: 'darkorange' }}></i>
-                        <span className='ms-2' style={{ fontWeight: '600' }}>You must enter a city name!</span>
-                    </div>
-                )}
-            </div>
+            <SearchCityCard
+                handleKeyPress={handleKeyPress}
+                search={search}
+                showAlert={showAlert}
+            />
             {error && <div className='error'>{error}</div>}
             {weatherData && (
                 <div className='weather-container'>
