@@ -12,8 +12,6 @@ const WeatherApp = () => {
     const [defaultCity, setDefaultCity] = useState(() => {
         return localStorage.getItem('defaultCity') || 'Neuquen';
     });
-    console.log('LocalStorage:', localStorage.getItem('defaultCity'));
-    console.log('State:', defaultCity);
 
     useEffect(() => {
         fetchWeatherData(defaultCity);

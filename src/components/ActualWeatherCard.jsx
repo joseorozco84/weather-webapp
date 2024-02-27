@@ -18,24 +18,24 @@ const ActualWeatherCard = ({ weatherData, onCityClick, defaultCity }) => {
     const windSpeed = isKilometersPerHour ? weatherData.current.wind_kph : weatherData.current.wind_mph;
     const windSpeedUnit = isKilometersPerHour ? "km/h" : "mi/h";
 
-    console.log('ActualWeatherCard:', weatherData.location.name);
-
     return (
         <>
             <div className='weather-image'>
                 <img src={weatherData.current.condition.icon} alt='weather' className='weather-icon' />
             </div>
-            <div className='weather-temp' onClick={toggleTemperatureUnit}>
+            <div className='weather-temp'>
+                <span onClick={toggleTemperatureUnit} style={{ cursor: 'pointer' }}>
                 {Math.floor(temperature)}{temperatureUnit}
+                </span>
             </div>
-            <div className='weather-city' onClick={onCityClick}>
+            <div className='weather-city'>
                 {weatherData.location.name}
                 {defaultCity === weatherData.location.name ? (
-                    <span>
+                    <span onClick={onCityClick} style={{ cursor: 'pointer' }}>
                     <i className="bi bi-star-fill" style={{ fontSize: '40px', color: '#ffa73c' }}></i>
                     </span>
                 ) : (
-                    <span>
+                    <span onClick={onCityClick} style={{ cursor: 'pointer' }}>
                     <i className="bi bi-star" style={{ fontSize: '40px', color: '#ff8c005c' }}></i>
                     </span>
                 )}
@@ -49,11 +49,13 @@ const ActualWeatherCard = ({ weatherData, onCityClick, defaultCity }) => {
                         <div className='text' style={{ fontSize: '18px', color: '#6c757d' }}>Humidity</div>
                     </div>
                 </div>
-                <div className='element' onClick={toggleWindSpeedUnit} >
+                <div className='element'>
                     <i className="bi bi-wind" style={{ fontSize: '60px', color: '#bdbdbd' }}></i>
                     <div className='data'>
                         <div className='wind-rate'>
+                            <span onClick={toggleWindSpeedUnit} style={{ cursor: 'pointer' }}>
                             {Math.floor(windSpeed)}{windSpeedUnit}
+                            </span>
                         </div>
                         <div className='text' style={{ fontSize: '18px', color: '#6c757d' }}>Wind Speed</div>
                     </div>

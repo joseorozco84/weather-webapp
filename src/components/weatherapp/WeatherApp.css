@@ -4,7 +4,8 @@
     height: auto;
     margin: auto;
     /* border-radius: 8px; */
-    background-color: #212529;
+    /* background-color: #212529; */
+    background: linear-gradient(50deg, rgb(39, 27, 43) 0%, rgb(37, 32, 66) 52%, rgb(28, 0, 61) 100%);
     text-align: -webkit-center;
     padding: 15px !important;
     user-select: none;
@@ -44,7 +45,7 @@
 }
 
 .weather-image{
-    /* margin-top: 48px; */
+    margin-top: 20px;
     display: flex;
     justify-content: center;
 }
@@ -54,7 +55,6 @@
 }
 
 .weather-temp{
-    cursor: pointer;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -88,7 +88,6 @@
 }
 
 .element{
-    cursor: pointer;
     margin: auto;
     display: flex;
     align-items: center;
