@@ -24,7 +24,7 @@ const ActualWeatherCard = ({ weatherData }) => {
                 <img src={weatherData.current.condition.icon} alt='weather' className='weather-icon' />
             </div>
             <div className='weather-temp' onClick={toggleTemperatureUnit}>
-            <i className="bi bi-thermometer-half" style={{ fontSize: '60px', color: '#ffa500' }}></i>
+                <i className="bi bi-thermometer-half" style={{ fontSize: '60px', color: '#ffa500' }}></i>
                 {Math.floor(temperature)}{temperatureUnit}
             </div>
             <div className='weather-city'>{weatherData.location.name}</div>
