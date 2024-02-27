@@ -12,6 +12,8 @@ const WeatherApp = () => {
     const [defaultCity, setDefaultCity] = useState(() => {
         return localStorage.getItem('defaultCity') || 'Neuquen';
     });
+    console.log('LocalStorage:', localStorage.getItem('defaultCity'));
+    console.log('State:', defaultCity);
 
     useEffect(() => {
         fetchWeatherData(defaultCity);
@@ -39,7 +41,7 @@ const WeatherApp = () => {
             setTimeout(() => setShowAlert(false), 3000);
             return;
         }
-        setDefaultCity(city);
+        fetchWeatherData(city);
         setShowAlert(false);
         cityInput.value = '';
     };
@@ -67,11 +69,18 @@ const WeatherApp = () => {
             {error && <div className='error'>{error}</div>}
             {weatherData && (
                 <div className='weather-container'>
-                    <ActualWeatherCard weatherData={weatherData} onCityClick={handleCityClick} />
+                    <ActualWeatherCard 
+                        weatherData={weatherData}
+                        onCityClick={handleCityClick}
+                        defaultCity={defaultCity}
+                    />
                     <hr className="hr" style={{ color: 'white' }} />
                     <div className='forecast-row'>
                         {weatherData.forecast.forecastday.map((day, dayIndex) => (
-                            <ForecastDayCard key={dayIndex} day={day} />
+                            <ForecastDayCard
+                                key={dayIndex}
+                                day={day}
+                            />
                         ))}
                     </div>
                     <hr className="hr" style={{ color: 'white' }} />
@@ -79,7 +88,10 @@ const WeatherApp = () => {
                         <div className='row'>
                             {weatherData.forecast.forecastday.length > 0 &&
                                 weatherData.forecast.forecastday[0].hour.map((hour, hourIndex) => (
-                                    <ForecastHourCard key={hourIndex} hour={hour} />
+                                    <ForecastHourCard
+                                        key={hourIndex}
+                                        hour={hour}
+                                    />
                                 ))}
                         </div>
                     </div>

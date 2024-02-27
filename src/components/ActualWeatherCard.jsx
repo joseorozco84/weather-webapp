@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const ActualWeatherCard = ({ weatherData, onCityClick }) => {
+const ActualWeatherCard = ({ weatherData, onCityClick, defaultCity }) => {
     const [isCelsius, setIsCelsius] = useState(true);
     const [isKilometersPerHour, setIsKilometersPerHour] = useState(true);
 
@@ -18,6 +18,8 @@ const ActualWeatherCard = ({ weatherData, onCityClick }) => {
     const windSpeed = isKilometersPerHour ? weatherData.current.wind_kph : weatherData.current.wind_mph;
     const windSpeedUnit = isKilometersPerHour ? "km/h" : "mi/h";
 
+    console.log('ActualWeatherCard:', weatherData.location.name);
+
     return (
         <>
             <div className='weather-image'>
@@ -26,7 +28,14 @@ const ActualWeatherCard = ({ weatherData, onCityClick }) => {
             <div className='weather-temp' onClick={toggleTemperatureUnit}>
                 {Math.floor(temperature)}{temperatureUnit}
             </div>
-            <div className='weather-city' onClick={onCityClick}>{weatherData.location.name}<i className="bi bi-star" style={{ color: 'yellow' }}></i></div>
+            <div className='weather-city' onClick={onCityClick}>
+                {weatherData.location.name}
+                {defaultCity === weatherData.location.name ? (
+                    <i className="bi bi-star-fill" style={{ fontSize: '20px', color: 'yellow' }}></i>
+                ) : (
+                    <i className="bi bi-star" style={{ fontSize: '20px', color: 'yellow' }}></i>
+                )}
+            </div>
             <div className='weather-country'>{weatherData.location.country}</div>
             <div className='data-container'>
                 <div className='element'>

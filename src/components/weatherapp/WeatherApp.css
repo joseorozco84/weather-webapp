@@ -68,7 +68,7 @@
     color: white;
     font-size: 40px;
     font-weight: 400;
-    align-items: center;
+    align-items: center !important;
     gap: 10px;
 }
 
