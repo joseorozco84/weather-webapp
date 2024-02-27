@@ -31,9 +31,13 @@ const ActualWeatherCard = ({ weatherData, onCityClick, defaultCity }) => {
             <div className='weather-city' onClick={onCityClick}>
                 {weatherData.location.name}
                 {defaultCity === weatherData.location.name ? (
-                    <i className="bi bi-star-fill" style={{ fontSize: '20px', color: 'yellow' }}></i>
+                    <span>
+                    <i className="bi bi-star-fill" style={{ fontSize: '40px', color: '#ffa73c' }}></i>
+                    </span>
                 ) : (
-                    <i className="bi bi-star" style={{ fontSize: '20px', color: 'yellow' }}></i>
+                    <span>
+                    <i className="bi bi-star" style={{ fontSize: '40px', color: '#ff8c005c' }}></i>
+                    </span>
                 )}
             </div>
             <div className='weather-country'>{weatherData.location.country}</div>
