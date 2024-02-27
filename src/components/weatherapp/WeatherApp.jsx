@@ -75,6 +75,13 @@ const WeatherApp = () => {
                     <ActualWeatherCard weatherData={weatherData} />
                     <hr className="hr" style={{ color: 'white' }} />
                     <div className='forecast-row'>
+                        {/* Render forecast for each day */}
+                        {weatherData.forecast.forecastday.map((day, dayIndex) => (
+                            <ForecastDayCard key={dayIndex} day={day} />
+                        ))}
+                    </div>
+                    <hr className="hr" style={{ color: 'white' }} />
+                    <div className='forecast-row'>
                         {/* Render forecast for today */}
                         <div className='row'>
                             {weatherData.forecast.forecastday.length > 0 &&
@@ -82,13 +89,6 @@ const WeatherApp = () => {
                                     <ForecastHourCard key={hourIndex} hour={hour} />
                                 ))}
                         </div>
-                    </div>
-                    <hr className="hr" style={{ color: 'white' }} />
-                    <div className='forecast-row'>
-                        {/* Render forecast for each day */}
-                        {weatherData.forecast.forecastday.map((day, dayIndex) => (
-                            <ForecastDayCard key={dayIndex} day={day} />
-                        ))}
                     </div>
                 </div>
             )}
