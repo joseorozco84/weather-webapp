@@ -24,7 +24,7 @@ const ActualWeatherCard = ({ weatherData }) => {
                 <img src={weatherData.current.condition.icon} alt='weather' className='weather-icon' />
             </div>
             <div className='weather-temp' onClick={toggleTemperatureUnit}>
-                <i className="bi bi-thermometer-half" style={{ fontSize: '60px', color: '#ffa500' }}></i>
+                {/* <i className="bi bi-thermometer-half" style={{ fontSize: '60px', color: '#ffa500' }}></i> */}
                 {Math.floor(temperature)}{temperatureUnit}
             </div>
             <div className='weather-city'>{weatherData.location.name}</div>
@@ -34,7 +34,7 @@ const ActualWeatherCard = ({ weatherData }) => {
                     <i className="bi bi-water" style={{ fontSize: '60px', color: '#0dcaf0' }}></i>
                     <div className='data'>
                         <div className='humidity-percent'>{weatherData.current.humidity}%</div>
-                        <div className='text'>Humidity</div>
+                        <div className='text' style={{ fontSize: '18px', color: '#6c757d' }}>Humidity</div>
                     </div>
                 </div>
                 <div className='element' onClick={toggleWindSpeedUnit} >
@@ -43,7 +43,7 @@ const ActualWeatherCard = ({ weatherData }) => {
                         <div className='wind-rate'>
                             {Math.floor(windSpeed)}{windSpeedUnit}
                         </div>
-                        <div className='text'>Wind Speed</div>
+                        <div className='text' style={{ fontSize: '18px', color: '#6c757d' }}>Wind Speed</div>
                     </div>
                 </div>
             </div>
