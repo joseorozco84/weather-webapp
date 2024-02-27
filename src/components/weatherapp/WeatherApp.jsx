@@ -4,16 +4,18 @@ import ForecastDayCard from '../ForecastDayCard';
 import ActualWeatherCard from '../ActualWeatherCard';
 import './WeatherApp.css';
 
-
 const WeatherApp = () => {
     const [weatherData, setWeatherData] = useState();
     const [error, setError] = useState();
     const [showAlert, setShowAlert] = useState(false);
-    const defaultCity = 'Neuquen'; // Specify your default city here
+    const [defaultCity, setDefaultCity] = useState(() => {
+        // Load default city from localStorage or use 'Neuquen' as the default
+        return localStorage.getItem('defaultCity') || 'Neuquen';
+    });
 
     useEffect(() => {
         fetchWeatherData(defaultCity);
-    }, [defaultCity]); // Empty dependency array to run once on component mount
+    }, [defaultCity]);
 
     const fetchWeatherData = async (city) => {
         try {
@@ -37,7 +39,7 @@ const WeatherApp = () => {
             setTimeout(() => setShowAlert(false), 3000);
             return;
         }
-        fetchWeatherData(city);
+        setDefaultCity(city);
         setShowAlert(false);
         cityInput.value = '';
     };
@@ -45,6 +47,14 @@ const WeatherApp = () => {
     const handleKeyPress = (event) => {
         if (event.key === 'Enter') {
             search();
+        }
+    };
+
+    const handleCityClick = () => {
+        if (weatherData) {
+            setDefaultCity(weatherData.location.name);
+            // Store default city in localStorage
+            localStorage.setItem('defaultCity', weatherData.location.name);
         }
     };
 
@@ -56,7 +66,7 @@ const WeatherApp = () => {
                         className='cityInput'
                         type='text'
                         placeholder='Search for a city'
-                        onKeyPress={handleKeyPress} // Trigger search on "Enter" key press
+                        onKeyPress={handleKeyPress}
                     />
                     <div className='search-icon' onClick={search}>
                         <i className="bi bi-search" style={{ fontSize: '24px', color: 'gray' }}></i>
@@ -72,17 +82,15 @@ const WeatherApp = () => {
             {error && <div className='error'>{error}</div>}
             {weatherData && (
                 <div className='weather-container'>
-                    <ActualWeatherCard weatherData={weatherData} />
+                    <ActualWeatherCard weatherData={weatherData} onCityClick={handleCityClick} />
                     <hr className="hr" style={{ color: 'white' }} />
                     <div className='forecast-row'>
-                        {/* Render forecast for each day */}
                         {weatherData.forecast.forecastday.map((day, dayIndex) => (
                             <ForecastDayCard key={dayIndex} day={day} />
                         ))}
                     </div>
                     <hr className="hr" style={{ color: 'white' }} />
                     <div className='forecast-row'>
-                        {/* Render forecast for today */}
                         <div className='row'>
                             {weatherData.forecast.forecastday.length > 0 &&
                                 weatherData.forecast.forecastday[0].hour.map((hour, hourIndex) => (
@@ -92,7 +100,6 @@ const WeatherApp = () => {
                     </div>
                 </div>
             )}
-            
         </div>
     );
 };

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const ActualWeatherCard = ({ weatherData }) => {
+const ActualWeatherCard = ({ weatherData, onCityClick }) => {
     const [isCelsius, setIsCelsius] = useState(true);
     const [isKilometersPerHour, setIsKilometersPerHour] = useState(true);
 
@@ -24,10 +24,9 @@ const ActualWeatherCard = ({ weatherData }) => {
                 <img src={weatherData.current.condition.icon} alt='weather' className='weather-icon' />
             </div>
             <div className='weather-temp' onClick={toggleTemperatureUnit}>
-                {/* <i className="bi bi-thermometer-half" style={{ fontSize: '60px', color: '#ffa500' }}></i> */}
                 {Math.floor(temperature)}{temperatureUnit}
             </div>
-            <div className='weather-city'>{weatherData.location.name}</div>
+            <div className='weather-city' onClick={onCityClick}>{weatherData.location.name}</div>
             <div className='weather-country'>{weatherData.location.country}</div>
             <div className='data-container'>
                 <div className='element'>
