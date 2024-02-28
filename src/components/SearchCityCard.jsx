@@ -28,7 +28,7 @@ const SearchCityCard = ({ handleKeyPress, search, showAlert }) => {
             {showAlert && (
                 <div className={`alert alert-warning ${showAlert ? 'show' : 'hide'}`} role="alert">
                     <i className="bi bi-exclamation-circle-fill" style={{ color: 'darkorange' }}></i>
-                    <span className='ms-2' style={{ fontWeight: '600' }}>You must enter a city name!</span>
+                    <span className='ms-2' style={{ fontWeight: '600' }}>You must enter a valid city name!</span>
                 </div>
             )}
         </div>

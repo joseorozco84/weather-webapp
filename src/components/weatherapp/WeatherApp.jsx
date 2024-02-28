@@ -21,15 +21,21 @@ const WeatherApp = () => {
         try {
             const API_KEY = process.env.REACT_APP_API_KEY;
             const URL = `http://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${city}&aqi=no&days=7`;
-
+    
             const response = await fetch(URL);
+            if (!response.ok) {
+                setShowAlert(true);
+                setTimeout(() => setShowAlert(false), 3000);
+                return;
+            }
+            
             const data = await response.json();
-            console.log(data);
             setWeatherData(data);
         } catch (error) {
-            setError('An error occurred while fetching data');
+            setError(error.message);
         }
     };
+    
 
     const search = () => {
         const cityInput = document.querySelector('.cityInput');
