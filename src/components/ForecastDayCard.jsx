@@ -1,7 +1,7 @@
 import React from 'react';
 
 const ForecastDayCard = ({ day }) => {
-    const maxTemperature = day.day.maxtemp_c;
+    const maxTemperature = Math.floor(day.day.maxtemp_c);
     const currentDate = new Date(); // Get current date
 
     // Extract year, month, and day from the date string

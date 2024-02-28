@@ -2,6 +2,15 @@
 import React from 'react';
 
 const SearchCityCard = ({ handleKeyPress, search, showAlert }) => {
+    const handleInputChange = (event) => {
+        const inputValue = event.target.value.trim();
+        // Regular expression pattern to allow only alphabet characters
+        const regex = /^[a-zA-Z\s]*$/;
+        if (!regex.test(inputValue)) {
+            event.target.value = inputValue.slice(0, -1); // Remove the last character
+        }
+    };
+
     return (
         <div className='top-bar'>
             <div className='search-container'>
@@ -10,6 +19,7 @@ const SearchCityCard = ({ handleKeyPress, search, showAlert }) => {
                     type='text'
                     placeholder='Search for a city'
                     onKeyPress={handleKeyPress}
+                    onChange={handleInputChange} // Add onChange event handler
                 />
                 <div className='search-icon' onClick={search}>
                     <i className="bi bi-search" style={{ fontSize: '24px', color: 'gray' }}></i>
