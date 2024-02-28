@@ -1,3 +1,29 @@
+/* width */
+::-webkit-scrollbar {
+    height: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f100;
+}
+
+
+/* Track */
+::-webkit-scrollbar-track:hover {
+    background: #42335a81;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #6c40be1f;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #21046696;
+}
+
 .container{
     display: inherit;
     width: 607px;
