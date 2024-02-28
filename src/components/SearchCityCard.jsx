@@ -1,7 +1,29 @@
-// SearchCityCard.jsx
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import ProgressBar from 'react-bootstrap/ProgressBar';
 
 const SearchCityCard = ({ handleKeyPress, search, showAlert }) => {
+    const [progress, setProgress] = useState(0);
+
+    useEffect(() => {
+        let intervalId;
+        if (showAlert) {
+            // Update progress from 0 to 100 in 3000ms
+            const startTime = Date.now();
+            intervalId = setInterval(() => {
+                const elapsedTime = Date.now() - startTime;
+                const progressValue = (elapsedTime / 3000) * 100;
+                setProgress(progressValue >= 100 ? 100 : progressValue);
+                if (progressValue >= 100) {
+                    clearInterval(intervalId);
+                }
+            }, 100);
+        }
+
+        return () => {
+            clearInterval(intervalId);
+        };
+    }, [showAlert]);
+
     const handleInputChange = (event) => {
         const inputValue = event.target.value.trim();
         // Regular expression pattern to allow only alphabet characters
@@ -29,6 +51,9 @@ const SearchCityCard = ({ handleKeyPress, search, showAlert }) => {
                 <div className={`alert alert-warning ${showAlert ? 'show' : 'hide'}`} role="alert">
                     <i className="bi bi-exclamation-circle-fill" style={{ color: 'darkorange' }}></i>
                     <span className='ms-2' style={{ fontWeight: '600' }}>You must enter a valid city name!</span>
+                    <div>
+                        <ProgressBar striped variant="warning" now={progress} />
+                    </div>
                 </div>
             )}
         </div>
