@@ -22,7 +22,7 @@ const ForecastDayCard = ({ day }) => {
     return (
         <div className='forecast-day-card'>
             <img src={day.day.condition.icon} alt='weather' className='forecast-icon' />
-            <span>{formattedDay}</span>
+            <span className='formatted-day'>{formattedDay}</span>
             <p>{maxTemperature}°C</p>
         </div>
     );

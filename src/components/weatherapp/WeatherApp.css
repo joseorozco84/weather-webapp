@@ -234,3 +234,8 @@
     display: flex;
     justify-content: flex-end;
 }
+
+.formatted-day{
+    text-decoration-color: #6c757d;
+    text-decoration-line: underline;
+}

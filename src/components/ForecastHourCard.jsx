@@ -11,8 +11,8 @@ const ForecastHourCard = ({ hour }) => {
     return (
         <div className='forecast-hour-card'>
             <img src={hour.condition.icon} alt='weather' className='forecast-icon' />
-            <div>{Math.floor(hour.temp_c)}°C</div>
             <div>{formattedTime}</div>
+            <div>{Math.floor(hour.temp_c)}°C</div>
         </div>
     );
 };
