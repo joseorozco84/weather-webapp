@@ -250,6 +250,7 @@
     top: 13%;
     transition: opacity 2.5s ease-in-out !important;
     overflow: hidden;
+    border: 0px !important;
 }
 
 .alert.show {

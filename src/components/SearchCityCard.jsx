@@ -11,7 +11,7 @@ const SearchCityCard = ({ handleKeyPress, search, showAlert }) => {
             const startTime = Date.now();
             intervalId = setInterval(() => {
                 const elapsedTime = Date.now() - startTime;
-                const progressValue = (elapsedTime / 3000) * 100;
+                const progressValue = (elapsedTime / 2800) * 100;
                 setProgress(progressValue >= 100 ? 100 : progressValue);
                 if (progressValue >= 100) {
                     clearInterval(intervalId);
@@ -52,7 +52,7 @@ const SearchCityCard = ({ handleKeyPress, search, showAlert }) => {
                     <i className="bi bi-exclamation-circle-fill" style={{ color: 'darkorange' }}></i>
                     <span className='ms-2' style={{ fontWeight: '600' }}>You must enter a valid city name!</span>
                     <div>
-                        <ProgressBar striped variant="warning" now={progress} />
+                        <ProgressBar striped variant="danger" now={progress} />
                     </div>
                 </div>
             )}
