@@ -192,6 +192,20 @@
     font-size: smaller;
 }
 
+.forecast-now-hour-card{
+    border-radius: 8px;
+    display: flex;
+    padding: 1% !important;
+    width: auto !important;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: rgb(255, 255, 255);
+    background-color: #5b00d134;
+    font-size: smaller;
+    font-weight: 600;
+}
+
 .forecast-day-card{
     display: flex;
     padding: 1% !important;
