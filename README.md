@@ -1,3 +1,4 @@
+![chrome_alfWYNyR9t](https://github.com/joseorozco84/weather-webapp/assets/81333025/918cd2f7-1a48-44f1-b1d0-0a5dbbc5e57a)
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
