@@ -4,6 +4,7 @@ import ForecastDayCard from '../ForecastDayCard';
 import ActualWeatherCard from '../ActualWeatherCard';
 import SearchCityCard from '../SearchCityCard'; // Import the new component
 import './WeatherApp.css';
+import Spinner from 'react-bootstrap/Spinner';
 
 const WeatherApp = () => {
     const [weatherData, setWeatherData] = useState();
@@ -12,13 +13,16 @@ const WeatherApp = () => {
     const [defaultCity, setDefaultCity] = useState(() => {
         return localStorage.getItem('defaultCity') || 'Neuquen';
     });
+    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
         fetchWeatherData(defaultCity);
-    }, [defaultCity]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     const fetchWeatherData = async (city) => {
         try {
+            setIsLoading(true); // Start loading
             const API_KEY = process.env.REACT_APP_API_KEY;
             const URL = `http://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${city}&aqi=no&days=7`;
     
@@ -33,6 +37,9 @@ const WeatherApp = () => {
             setWeatherData(data);
         } catch (error) {
             setError(error.message);
+        } finally {
+            // Introduce a delay before setting isLoading to false
+            setTimeout(() => setIsLoading(false), 200); // Adjust the delay time as needed
         }
     };
     
@@ -57,11 +64,15 @@ const WeatherApp = () => {
     };
 
     const handleCityClick = () => {
-        if (weatherData) {
-            setDefaultCity(weatherData.location.name);
-            localStorage.setItem('defaultCity', weatherData.location.name);
+    if (weatherData) {
+        const newDefaultCity = weatherData.location.name;
+        if (newDefaultCity !== defaultCity) {
+            setDefaultCity(newDefaultCity);
+            localStorage.setItem('defaultCity', newDefaultCity);
         }
-    };
+    }
+};
+
 
     return (
         <div className='container'>
@@ -70,8 +81,9 @@ const WeatherApp = () => {
                 search={search}
                 showAlert={showAlert}
             />
-            {error && <div className='error'>{error}</div>}
-            {weatherData && (
+            {isLoading && <div><Spinner animation="border" variant="primary" /></div>}
+            {!isLoading && error && <div className='error'>{error}</div>}
+            {!isLoading && weatherData && (
                 <div className='weather-container'>
                     <ActualWeatherCard 
                         weatherData={weatherData}

@@ -36,7 +36,7 @@ const ActualWeatherCard = ({ weatherData, onCityClick, defaultCity }) => {
                     </span>
                 ) : (
                     <span onClick={onCityClick} style={{ cursor: 'pointer' }}>
-                    <i className="bi bi-star" style={{ fontSize: '40px', color: '#ff8c005c' }}></i>
+                    <i className="bi bi-star" style={{ fontSize: '40px', color: '#6c757d' }}></i>
                     </span>
                 )}
             </div>
