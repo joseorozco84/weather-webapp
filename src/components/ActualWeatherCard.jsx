@@ -40,7 +40,7 @@ const ActualWeatherCard = ({ weatherData, onCityClick, defaultCity }) => {
                     </span>
                 )}
             </div>
-            <div className='weather-country'>{weatherData.location.country}</div>
+            <div className='weather-country'>{weatherData.location.country.toUpperCase()}</div>
             <div className='data-container'>
                 <div className='element'>
                     <i className="bi bi-water" style={{ fontSize: '60px', color: '#0dcaf0' }}></i>
